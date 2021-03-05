@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.PostUpdate;
 import java.util.List;
 
 @RestController
@@ -29,7 +28,7 @@ public class IngredientesController {
         return ingredientesService.saveAllIngredientes(ingredientes);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Ingredientes> getIngredientes(){
         return ingredientesService.getIngredientes();
     }

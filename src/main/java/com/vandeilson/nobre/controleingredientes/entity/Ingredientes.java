@@ -24,10 +24,10 @@ public class Ingredientes {
     @Column
     private Float preco;
 
-    @Column
+    @Column(name = "volume_peso")
     private int volumePeso;
 
-    @Column
-    private UnidadeMedidaEnum type;
+    @Column(name = "unidade_medida")
+    private String type;
 
 }
