@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum UnidadeMedidaEnum {
-    G("g"),
-    KG("kg"),
-    L("l"),
-    ML("ml");
+    g("g"),
+    kg("kg"),
+    l("l"),
+    ml("ml");
 
     private final String description;
 }

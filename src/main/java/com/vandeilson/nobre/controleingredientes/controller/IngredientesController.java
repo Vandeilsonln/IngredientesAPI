@@ -33,17 +33,17 @@ public class IngredientesController {
         return ingredientesService.getIngredientes();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/byId/{id}")
     public Ingredientes getById(@PathVariable Long id){
         return ingredientesService.getIngredientesById(id).orElse(null);
     }
 
-    @GetMapping("/{descricao}")
+    @GetMapping("/byDescription/{descricao}")
     public Ingredientes getByDescricao(@PathVariable String descricao){
         return ingredientesService.getIngredientesByDescricao(descricao).orElse(null);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id){
         ingredientesService.deleteIngrediente(id);
