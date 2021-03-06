@@ -45,12 +45,13 @@ public class IngredientesService {
 
     public Ingredientes updateIngrediente(Long id, Ingredientes ingrediente) throws IngredienteNotFoundException {
         verifyIfExists(id);
+        ingrediente.setId_ingrediente(id);
         return ingredientesRepository.save(ingrediente);
 
     }
 
-    private Ingredientes verifyIfExists(Long id) throws IngredienteNotFoundException {
-        return ingredientesRepository.findById(id)
+    private void verifyIfExists(Long id) throws IngredienteNotFoundException {
+        ingredientesRepository.findById(id)
                 .orElseThrow(() -> new IngredienteNotFoundException(id));
     }
 
