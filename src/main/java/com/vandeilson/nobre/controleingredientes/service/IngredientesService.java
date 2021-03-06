@@ -38,15 +38,18 @@ public class IngredientesService {
         ingredientesRepository.deleteById(id);
     }
 
-    public Ingredientes updateIngrediente(Ingredientes ingrediente){
-        Ingredientes foundIngrediente = ingredientesRepository.findById(ingrediente.getId_ingrediente()).orElse(null);
+    public Ingredientes updateIngrediente(Long id, Ingredientes ingrediente){
+        verifyIfExists(id);
 
-        foundIngrediente.setId_ingrediente(ingrediente.getId_ingrediente());
-        foundIngrediente.setDescricao(ingrediente.getDescricao());
-        foundIngrediente.setPreco(ingrediente.getPreco());
-        foundIngrediente.setVolumePeso(ingrediente.getVolumePeso());
-        foundIngrediente.setType(ingrediente.getType());
+        if (verifyIfExists(id) != null){
+            return ingredientesRepository.save(ingrediente);
+        }
+        return null;
 
-        return ingredientesRepository.save(foundIngrediente);
+    }
+
+    private Ingredientes verifyIfExists(Long id){
+        return ingredientesRepository.findById(id)
+                .orElseThrow(null);
     }
 }

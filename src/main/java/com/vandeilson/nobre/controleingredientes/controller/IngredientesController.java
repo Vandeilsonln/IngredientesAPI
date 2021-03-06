@@ -49,8 +49,8 @@ public class IngredientesController {
         ingredientesService.deleteIngrediente(id);
     }
 
-    @PutMapping("/update")
-    public Ingredientes updateIngrediente(@RequestBody Ingredientes ingrediente){
-        return  ingredientesService.updateIngrediente(ingrediente);
+    @PutMapping("/update/{id}")
+    public Ingredientes updateIngrediente(@PathVariable Long id, @RequestBody Ingredientes ingrediente){
+        return  ingredientesService.updateIngrediente(id, ingrediente);
     }
 }
