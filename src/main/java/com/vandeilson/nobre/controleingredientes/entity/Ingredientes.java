@@ -18,16 +18,17 @@ public class Ingredientes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_ingrediente;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String descricao;
 
-    @Column
+    @Column(nullable = false)
     private Float preco;
 
-    @Column(name = "volume_peso")
+    @Column(nullable = false, name = "volume_peso")
     private int volumePeso;
 
-    @Column(name = "unidade_medida")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "unidade_medida", nullable = false)
+    private UnidadeMedidaEnum type;
 
 }
