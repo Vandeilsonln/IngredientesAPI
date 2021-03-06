@@ -1,6 +1,8 @@
 package com.vandeilson.nobre.controleingredientes.service;
 
 import com.vandeilson.nobre.controleingredientes.entity.Ingredientes;
+import com.vandeilson.nobre.controleingredientes.exceptions.IngredienteAlreadyRegisteredException;
+import com.vandeilson.nobre.controleingredientes.exceptions.IngredienteNotFoundException;
 import com.vandeilson.nobre.controleingredientes.repository.IngredientesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,8 @@ public class IngredientesService {
     @Autowired
     private IngredientesRepository ingredientesRepository;
 
-    public Ingredientes saveIngrediente(Ingredientes ingrediente){
+    public Ingredientes saveIngrediente(Ingredientes ingrediente) throws IngredienteAlreadyRegisteredException {
+        verifyIfIsAlreadyRegistered(ingrediente);
         return ingredientesRepository.save(ingrediente);
     }
 
@@ -26,7 +29,8 @@ public class IngredientesService {
         return ingredientesRepository.findAll();
     }
 
-    public Optional<Ingredientes> getIngredientesById(Long id){
+    public Optional<Ingredientes> getIngredientesById(Long id) throws IngredienteNotFoundException {
+        verifyIfExists(id);
         return ingredientesRepository.findById(id);
     }
 
@@ -34,22 +38,27 @@ public class IngredientesService {
         return ingredientesRepository.findByDescricao(descricao);
     }
 
-    public void deleteIngrediente(Long id){
+    public void deleteIngrediente(Long id) throws IngredienteNotFoundException {
+        verifyIfExists(id);
         ingredientesRepository.deleteById(id);
     }
 
-    public Ingredientes updateIngrediente(Long id, Ingredientes ingrediente){
+    public Ingredientes updateIngrediente(Long id, Ingredientes ingrediente) throws IngredienteNotFoundException {
         verifyIfExists(id);
-
-        if (verifyIfExists(id) != null){
-            return ingredientesRepository.save(ingrediente);
-        }
-        return null;
+        return ingredientesRepository.save(ingrediente);
 
     }
 
-    private Ingredientes verifyIfExists(Long id){
+    private Ingredientes verifyIfExists(Long id) throws IngredienteNotFoundException {
         return ingredientesRepository.findById(id)
-                .orElseThrow(null);
+                .orElseThrow(() -> new IngredienteNotFoundException(id));
+    }
+
+    private void verifyIfIsAlreadyRegistered (Ingredientes ingrediente)throws IngredienteAlreadyRegisteredException {
+        Optional<Ingredientes> optSavedIngrediente = ingredientesRepository.findById(ingrediente.getId_ingrediente());
+
+        if (optSavedIngrediente.isPresent()) {
+            throw new IngredienteAlreadyRegisteredException(ingrediente);
+        }
     }
 }

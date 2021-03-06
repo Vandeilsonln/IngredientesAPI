@@ -1,6 +1,8 @@
 package com.vandeilson.nobre.controleingredientes.controller;
 
 import com.vandeilson.nobre.controleingredientes.entity.Ingredientes;
+import com.vandeilson.nobre.controleingredientes.exceptions.IngredienteAlreadyRegisteredException;
+import com.vandeilson.nobre.controleingredientes.exceptions.IngredienteNotFoundException;
 import com.vandeilson.nobre.controleingredientes.service.IngredientesService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class IngredientesController {
 
     @PostMapping("/addSingle")
     @ResponseStatus(HttpStatus.CREATED)
-    public Ingredientes createIngrediente(@RequestBody Ingredientes ingrediente){
+    public Ingredientes createIngrediente(@RequestBody Ingredientes ingrediente) throws IngredienteAlreadyRegisteredException {
         return ingredientesService.saveIngrediente(ingrediente);
     }
 
@@ -34,7 +36,7 @@ public class IngredientesController {
     }
 
     @GetMapping("/byId/{id}")
-    public Ingredientes getById(@PathVariable Long id){
+    public Ingredientes getById(@PathVariable Long id) throws IngredienteNotFoundException {
         return ingredientesService.getIngredientesById(id).orElse(null);
     }
 
@@ -45,12 +47,12 @@ public class IngredientesController {
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable Long id){
+    public void deleteById(@PathVariable Long id) throws IngredienteNotFoundException {
         ingredientesService.deleteIngrediente(id);
     }
 
     @PutMapping("/update/{id}")
-    public Ingredientes updateIngrediente(@PathVariable Long id, @RequestBody Ingredientes ingrediente){
+    public Ingredientes updateIngrediente(@PathVariable Long id, @RequestBody Ingredientes ingrediente) throws IngredienteNotFoundException {
         return  ingredientesService.updateIngrediente(id, ingrediente);
     }
 }
