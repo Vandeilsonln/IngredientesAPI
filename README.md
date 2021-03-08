@@ -1,8 +1,8 @@
 # **API - Controle de Ingredientes**
 
-##### A presente API foi construída com o intuito de aplicar os conhecimentos em desenvolvimento de **API REST** com **Java** e **Spring Boot**.
+#### A presente API foi construída com o intuito de aplicar os conhecimentos em desenvolvimento de **API REST** com **Java** e **Spring Boot**.
 
-##### A aplicação realiza as operações básicas de CRUD para o gerenciamento de ingredientes de uma confeitaria, com informações sobre tipo do produto e preço.
+#### A aplicação realiza as operações básicas de CRUD para o gerenciamento de ingredientes de uma confeitaria, com informações sobre tipo do produto e preço.
 ![REST http Verbs](https://www.codeproject.com/KB/webservices/826383/table.png)
 
 
@@ -14,19 +14,19 @@
 - Spring Data JPA
 - MySQL
 - Junit
-## :open_book: **Etapas de desenvolvimento**
+## :open_book: **1. Etapas de desenvolvimento**
 :white_check_mark: Implementação dos principais métodos **REST HTTP**, também conhecido como **CRUD**.
 - [ ] Configuração de conexão com banco de dados local e *in memory* (**H2**).
 - [ ] Implementação de testes unitários
 - [ ] Deploy em nuvem no **Heroku**
 
 
-## :hammer_and_wrench: **Configurações iniciais**
+## :hammer_and_wrench: **2 - Configurações iniciais**
 
-### **1 - Criar o banco e a table no MySQL**
+### **2.1 - Criar o banco e a table no MySQL**
 
-##### Para dar início à configuração do projeto, primeiramente é necessário a **construção de uma tabela no MySQL**. A partir dela poderá ser feito o mapeamento com o JPA.
-##### Deve-se, portanto, criar uma databse com o nome "**db_vendasbolos**", e dentro dela criar a tabela "**tbl_ingredientes**"
+#### Para dar início à configuração do projeto, primeiramente é necessário a **construção de uma tabela no MySQL**. A partir dela poderá ser feito o mapeamento com o JPA.
+#### Deve-se, portanto, criar uma databse com o nome "**db_vendasbolos**", e dentro dela criar a tabela "**tbl_ingredientes**"
 ![Tabela de ingredientes do MySQL](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/tbl_ingredientes.png?raw=true)
 
 
@@ -63,7 +63,7 @@ INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VAL
 ```
 </details>
 
-### **2 - Configurando as propriedades**
+### **2.2 - Configurando as propriedades**
 #### Uma vez criado a database, devemos configurá-lo no arquivo "**application.properties**", tomando os devidos cuidados com os atributos de ***url*, *username* e *password***, para que a conexão aconteça corretamente.
 
 ```properties
@@ -76,3 +76,30 @@ spring.spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 ```
 
+## :building_construction: **3- Estrutura do projeto**
+
+![Estrutura do projeto](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/estrutura.png?raw=true)
+
+### **3.1 Controller**
+
+#### Camada responsável por orquestrar o fluxo da aplicação ao fazer o mapeamento e o direcionamento dos *requests* para a camada de serviços.
+
+![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Controller.png?raw=true)
+
+### **3.2 Entity**
+
+#### Camada responsável por fazer o **ORM** *(Object Relational MApper)* da tabela "*tbl_ingredientes*" para que se comporte como uma classe comum em Java.
+
+![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Controller.png?raw=true)
+
+### **3.3 Repository**
+
+#### Nesta camada criamos uma interface que extende a interface *JpaRepository* do *Spring Data JPA*. É através dela que iremos usar a camada de persistência para gravar e recuperar dados, fazendo uma ponte com o banco de dados.
+
+![Camada Repository](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Repository.png?raw=true)
+
+### **3.4 Service**
+
+#### Camada onde serão inseridas as regras de negócio, e onde injetamos o repository para que seja possível a chamada dos métodos que farão a persistência
+
+![Camada Service](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Service.png?raw=true)
