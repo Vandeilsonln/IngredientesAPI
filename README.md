@@ -7,11 +7,10 @@
 
 
 ### :open_book: **Etapas de desenvolvimento**
-##### - [x] Implementação dos principais métodos **REST HTTP**, também conhecido como **CRUD**.
-
-##### - [ ] Implementação de testes unitários
-##### - [ ] Deploy em nuvem no **Heroku**
-##### - [ ] Configuração de conexão com banco de dados local e *in memory* (**H2**).
+:white_check_mark: Implementação dos principais métodos **REST HTTP**, também conhecido como **CRUD**.
+- [ ] Implementação de testes unitários
+- [ ] Deploy em nuvem no **Heroku**
+- [ ] Configuração de conexão com banco de dados local e *in memory* (**H2**).
 
 ### :computer: **Tecnologias usadas**
 
@@ -26,7 +25,7 @@
 
 ##### Para dar início à configuração do projeto, primeiramente é necessário a **construção de uma tabela no MySQL**. A partir dela poderá ser feito o mapeamento com o JPA.
 ##### Deve-se, portanto, criar uma databse com o nome "**db_vendasbolos**", e dentro dela criar a tabela "**tbl_ingredientes**"
-![Tabela de ingredientes do MySQL](https://github.com/Vandeilsonln/IngredientesAPI/_images/blob/master/tbl_ingredientes.png?raw=true)
+![Tabela de ingredientes do MySQL](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/tbl_ingredientes.png?raw=true)
 
 ### Segue abaixo o código SQL para criação da table:
 ```sql
@@ -35,7 +34,7 @@ id_ingrediente INT AUTO_INCREMENT,
 descricao varchar(50) not null,
 preco int not null,
 volume_peso int not null,
-unidade_medida varchar(2) not null,
+unidade_medida varchar(8) not null,
 
 CONSTRAINT ingredientes_id_pk primary key(id_ingrediente),
 CONSTRAINT ingredientes_descricao_UN UNIQUE(descricao),
