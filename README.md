@@ -90,16 +90,16 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 
 #### Camada responsável por fazer o **ORM** *(Object Relational MApper)* da tabela "*tbl_ingredientes*" para que se comporte como uma classe comum em Java.
 
-![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Controller.png?raw=true)
+![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Entity.png?raw=true)
 
-### **3.3 Repository**
-
-#### Nesta camada criamos uma interface que extende a interface *JpaRepository* do *Spring Data JPA*. É através dela que iremos usar a camada de persistência para gravar e recuperar dados, fazendo uma ponte com o banco de dados.
-
-![Camada Repository](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Repository.png?raw=true)
-
-### **3.4 Service**
+### **3.3 Service**
 
 #### Camada onde serão inseridas as regras de negócio, e onde injetamos o repository para que seja possível a chamada dos métodos que farão a persistência
 
 ![Camada Service](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Service.png?raw=true)
+
+### **3.4 Repository**
+
+#### Nesta camada criamos uma interface que extende a interface *JpaRepository* do *Spring Data JPA*. É através dela que iremos usar a camada de persistência para gravar e recuperar dados, fazendo uma ponte com o banco de dados.
+
+![Camada Repository](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Repository.png?raw=true)
