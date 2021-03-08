@@ -6,12 +6,6 @@
 ![REST http Verbs](https://www.codeproject.com/KB/webservices/826383/table.png)
 
 
-### :open_book: **Etapas de desenvolvimento**
-:white_check_mark: Implementação dos principais métodos **REST HTTP**, também conhecido como **CRUD**.
-- [ ] Implementação de testes unitários
-- [ ] Deploy em nuvem no **Heroku**
-- [ ] Configuração de conexão com banco de dados local e *in memory* (**H2**).
-
 ### :computer: **Tecnologias usadas**
 
 - Apache Maven
@@ -20,14 +14,24 @@
 - Spring Data JPA
 - MySQL
 - Junit
+## :open_book: **Etapas de desenvolvimento**
+:white_check_mark: Implementação dos principais métodos **REST HTTP**, também conhecido como **CRUD**.
+- [ ] Configuração de conexão com banco de dados local e *in memory* (**H2**).
+- [ ] Implementação de testes unitários
+- [ ] Deploy em nuvem no **Heroku**
 
-## :hammer_and_wrench: **Como usar**
+
+## :hammer_and_wrench: **Configurações iniciais**
+
+### **1 - Criar o banco e a table no MySQL**
 
 ##### Para dar início à configuração do projeto, primeiramente é necessário a **construção de uma tabela no MySQL**. A partir dela poderá ser feito o mapeamento com o JPA.
 ##### Deve-se, portanto, criar uma databse com o nome "**db_vendasbolos**", e dentro dela criar a tabela "**tbl_ingredientes**"
 ![Tabela de ingredientes do MySQL](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/tbl_ingredientes.png?raw=true)
 
-### Segue abaixo o código SQL para criação da table:
+
+#### Segue abaixo o código SQL para criação da table:
+
 ```sql
 CREATE TABLE IF NOT EXISTS tbl_ingredientes (
 id_ingrediente INT AUTO_INCREMENT,
@@ -42,7 +46,11 @@ CONSTRAINT ingredientes_unidade_medida CHECK(unidade_medida in ('kg', 'g', 'ml',
 );
 ```
 
-##### A seguir, podemos popular a tabela com alguns elementos, com o código abaixo:
+
+<details>
+
+ <summary>A seguir, podemos popular a tabela com alguns elementos, com o código abaixo: (Clique para Expandir)</summary>
+
 ```sql
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Leite condensado', 4.5, 395, 'g');
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Creme de Leite', 2.7, 200, 'g');
@@ -53,3 +61,18 @@ INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VAL
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Ovos', 0.4, 50, 'g');
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Chantily', 11, 1, 'l');
 ```
+</details>
+
+### **2 - Configurando as propriedades**
+#### Uma vez criado a database, devemos configurá-lo no arquivo "**application.properties**", tomando os devidos cuidados com os atributos de ***url*, *username* e *password***, para que a conexão aconteça corretamente.
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/db_vendasbolos?useSSL=false
+spring.datasource.username=root
+spring.datasource.password=admin
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+spring.spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
+```
+
