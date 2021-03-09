@@ -106,7 +106,7 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 
 ## **4 - Testando a API com o Postman**
 
-### **4.1 - Método GET** 
+## **4.1 - Método GET** 
 #### **getIngredientes** - Retorna todos as tuplas presentes na tabela
 ```http
 http://localhost:8080/api/v1/ingrediente/all
@@ -121,3 +121,79 @@ http://localhost:8080/api/v1/ingrediente/byId/2
 http://localhost:8080/api/v1/ingrediente/byDescription/Ovos
 ```
 
+## **4.2 - Método POST**
+#### **createIngrediente** - Cadastra uma tupla no banco.
+```http
+http://localhost:8080/api/v1/ingrediente/addSingle
+```
+
+<details>
+
+<summary>Use o JSON abaixo como exemplo: (clique para expandir</summary>
+
+```json
+{   
+    "id_ingrediente": 9,
+    "descricao": "Teste POST ingrediente",
+    "preco": 24.5,
+    "volumePeso": 1,
+    "type": "kg"
+}
+```
+</details>
+
+#### **createAllIngredientes** - Cadastra uma lista de tuplas no banco.
+```http
+http://localhost:8080/api/v1/ingrediente/addMany
+```
+
+<details>
+
+<summary>Use o JSON abaixo como exemplo: (clique para expandir</summary>
+
+```json
+[
+{   
+    "id_ingrediente": 10,
+    "descricao": "Ingrediente 1 da lista",
+    "preco": 14.5,
+    "volumePeso": 400,
+    "type": "ml"
+},
+{
+    "id_ingrediente": 11,
+    "descricao": "Ingrediente 2 da lista",
+    "preco": 5,
+    "volumePeso": 2,
+    "type": "l"
+}
+]
+```
+</details>
+
+## **4.3 - Método PUT**
+#### **updateIngrediente**
+```
+http://localhost:8080/api/v1/ingrediente/update/11
+```
+
+<details>
+
+<summary>Use o JSON abaixo como exemplo: (clique para expandir</summary>
+
+```json
+{   
+    "id_ingrediente": 11,
+    "descricao": "Chocolate nobre meio amargo",
+    "preco": 40,
+    "volumePeso": 1,
+    "type": "kg"
+}
+```
+</details>
+
+## **4.4 - Método DELETE**
+#### **deleteById**
+```
+http://localhost:8080/api/v1/ingrediente/delete/11
+```
