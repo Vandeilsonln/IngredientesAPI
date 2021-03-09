@@ -133,7 +133,6 @@ http://localhost:8080/api/v1/ingrediente/addSingle
 
 ```json
 {   
-    "id_ingrediente": 9,
     "descricao": "Teste POST ingrediente",
     "preco": 24.5,
     "volumePeso": 1,
@@ -154,14 +153,12 @@ http://localhost:8080/api/v1/ingrediente/addMany
 ```json
 [
 {   
-    "id_ingrediente": 10,
     "descricao": "Ingrediente 1 da lista",
     "preco": 14.5,
     "volumePeso": 400,
     "type": "ml"
 },
 {
-    "id_ingrediente": 11,
     "descricao": "Ingrediente 2 da lista",
     "preco": 5,
     "volumePeso": 2,
@@ -183,7 +180,6 @@ http://localhost:8080/api/v1/ingrediente/update/11
 
 ```json
 {   
-    "id_ingrediente": 11,
     "descricao": "Chocolate nobre meio amargo",
     "preco": 40,
     "volumePeso": 1,

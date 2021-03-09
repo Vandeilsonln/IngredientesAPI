@@ -16,8 +16,7 @@ public class IngredientesService {
     @Autowired
     private IngredientesRepository ingredientesRepository;
 
-    public Ingredientes saveIngrediente(Ingredientes ingrediente) throws IngredienteAlreadyRegisteredException {
-        verifyIfIsAlreadyRegistered(ingrediente);
+    public Ingredientes saveIngrediente(Ingredientes ingrediente){
         return ingredientesRepository.save(ingrediente);
     }
 
