@@ -96,7 +96,7 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 
 #### Camada onde serão inseridas as regras de negócio, e onde injetamos o repository para que seja possível a chamada dos métodos que farão a persistência
 
-![Camada Service](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Service.png?raw=true)
+![Camada Service](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Service2.png?raw=true)
 
 ### **3.4 Repository**
 
