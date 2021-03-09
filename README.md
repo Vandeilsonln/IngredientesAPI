@@ -88,7 +88,7 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 
 ### **3.2 Entity**
 
-#### Camada responsável por fazer o **ORM** *(Object Relational MApper)* da tabela "*tbl_ingredientes*" para que se comporte como uma classe comum em Java.
+#### Camada responsável por fazer o **ORM** *(Object Relational Mapper)* da tabela "*tbl_ingredientes*" para que se comporte como uma classe comum em Java.
 
 ![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Entity.png?raw=true)
 
@@ -103,3 +103,21 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 #### Nesta camada criamos uma interface que extende a interface *JpaRepository* do *Spring Data JPA*. É através dela que iremos usar a camada de persistência para gravar e recuperar dados, fazendo uma ponte com o banco de dados.
 
 ![Camada Repository](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Repository.png?raw=true)
+
+## **4 - Testando a API com o Postman**
+
+### **4.1 - Método GET** 
+#### **getIngredientes** - Retorna todos as tuplas presentes na tabela
+```http
+http://localhost:8080/api/v1/ingrediente/all
+```
+#### **getById** - Retorna pelo Id fornecido
+```http
+http://localhost:8080/api/v1/ingrediente/byId/2
+```
+
+#### **getByDescricao** - Retorna pela descrição
+```http
+http://localhost:8080/api/v1/ingrediente/byDescription/Ovos
+```
+
