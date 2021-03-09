@@ -1,4 +1,4 @@
-# **API - Controle de Ingredientes**
+# <center>**API - Controle de Ingredientes**</center>
 
 #### A presente API foi construída com o intuito de aplicar os conhecimentos em desenvolvimento de **API REST** com **Java** e **Spring Boot**.
 
@@ -14,14 +14,14 @@
 - Spring Data JPA
 - MySQL
 - Junit
-## :open_book: **1. Etapas de desenvolvimento**
+## <center>:open_book: **1. Etapas de desenvolvimento**</center>
 :white_check_mark: Implementação dos principais métodos **REST HTTP**, também conhecido como **CRUD**.
 - [ ] Configuração de conexão com banco de dados local e *in memory* (**H2**).
 - [ ] Implementação de testes unitários
 - [ ] Deploy em nuvem no **Heroku**
 
 
-## :hammer_and_wrench: **2 - Configurações iniciais**
+## <center>:hammer_and_wrench: **2 - Configurações iniciais**</center>
 
 ### **2.1 - Criar o banco e a table no MySQL**
 
@@ -76,7 +76,7 @@ spring.spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 ```
 
-## :building_construction: **3- Estrutura do projeto**
+## <center>:building_construction: **3 - Estrutura do projeto**</center>
 
 ![Estrutura do projeto](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/estrutura.png?raw=true)
 
@@ -104,23 +104,24 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 
 ![Camada Repository](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Repository.png?raw=true)
 
-## **4 - Testando a API com o Postman**
+## <center>**4 - Testando a API com o Postman**</center>
 
 ## **4.1 - Método GET** 
 #### **getIngredientes** - Retorna todos as tuplas presentes na tabela
 ```http
 http://localhost:8080/api/v1/ingrediente/all
 ```
+---
 #### **getById** - Retorna pelo Id fornecido
 ```http
 http://localhost:8080/api/v1/ingrediente/byId/2
 ```
-
+---
 #### **getByDescricao** - Retorna pela descrição
 ```http
 http://localhost:8080/api/v1/ingrediente/byDescription/Ovos
 ```
-
+---
 ## **4.2 - Método POST**
 #### **createIngrediente** - Cadastra uma tupla no banco.
 ```http
@@ -141,6 +142,7 @@ http://localhost:8080/api/v1/ingrediente/addSingle
 ```
 </details>
 
+---
 #### **createAllIngredientes** - Cadastra uma lista de tuplas no banco.
 ```http
 http://localhost:8080/api/v1/ingrediente/addMany
@@ -168,6 +170,7 @@ http://localhost:8080/api/v1/ingrediente/addMany
 ```
 </details>
 
+---
 ## **4.3 - Método PUT**
 #### **updateIngrediente**
 ```
@@ -188,6 +191,7 @@ http://localhost:8080/api/v1/ingrediente/update/11
 ```
 </details>
 
+---
 ## **4.4 - Método DELETE**
 #### **deleteById**
 ```
