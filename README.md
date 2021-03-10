@@ -16,23 +16,61 @@
 - Junit
 ## <center>:open_book: **1. Etapas de desenvolvimento**</center>
 :white_check_mark: Implementação dos principais métodos **REST HTTP**, também conhecido como **CRUD**.
-- [ ] Configuração de conexão com banco de dados local e *in memory* (**H2**).
+
+:white_check_mark: Configuração de conexão com banco de dados local e *in memory* (**H2**).
 - [ ] Implementação de testes unitários
 - [ ] Deploy em nuvem no **Heroku**
 
+## <center>:building_construction: **2 - Estrutura do projeto**</center>
 
-## <center>:hammer_and_wrench: **2 - Configurações iniciais**</center>
+![Estrutura do projeto](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/estrutura.png?raw=true)
 
-### **2.1 - Criar o banco e a table no MySQL**
+### **2.1 Controller**
+
+#### Camada responsável por orquestrar o fluxo da aplicação ao fazer o mapeamento e o direcionamento dos *requests* para a camada de serviços.
+
+![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Controller.png?raw=true)
+
+### **2.2 Entity**
+
+#### Camada responsável por fazer o **ORM** *(Object Relational Mapper)* da tabela "*tbl_ingredientes*" para que se comporte como uma classe comum em Java.
+
+![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Entity.png?raw=true)
+
+### **2.3 Service**
+
+#### Camada onde serão inseridas as regras de negócio, e onde injetamos o repository para que seja possível a chamada dos métodos que farão a persistência.
+
+![Camada Service](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Service2.png?raw=true)
+
+### **2.4 Repository**
+
+#### Nesta camada criamos uma interface que extende a interface *JpaRepository* do *Spring Data JPA*. É através dela que iremos usar a camada de persistência para gravar e recuperar dados, fazendo uma ponte com o banco de dados.
+
+![Camada Repository](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Repository.png?raw=true)
+
+## <center>:hammer_and_wrench: **3 - Rodando a aplicação com o profile correto**</center>
+
+#### Foram configurados **2 profiles** para podermos testar a aplicação: 
+![Profiles](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Profiles.png?raw=true)
+ - O profile "**prod**" vai subir a aplicação com o banco de dados **MySQL**. Para tanto, é necessário que você tenha o mesmo instalado em sua máquina, com o database e a tabela criadas com os campos corretos. Mas não se preocupe, o código para a criação de tudo será fornecido logo abaixo! :relaxed:
+ - O profile "**dev**" vai subir a aplicação com o banco H2 in-memory. Dessa forma, é possível testar os métodos sem inteferir no banco de produção, além de não ser necessário nenhum software adicional instalado.
+
+#### A forma de escolher qual o profile será o ativo na hora de rodar a aplicação é selecionando o *configuration*, conforme imagem abaixo:
+![Selecionando Profile](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/selectProfile.png?raw=true)
+
+### **3.1 - Criar o banco e a table no MySQL**
 
 #### Para dar início à configuração do projeto, primeiramente é necessário a **construção de uma tabela no MySQL**. A partir dela poderá ser feito o mapeamento com o JPA.
 #### Deve-se, portanto, criar uma databse com o nome "**db_vendasbolos**", e dentro dela criar a tabela "**tbl_ingredientes**"
 ![Tabela de ingredientes do MySQL](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/tbl_ingredientes.png?raw=true)
 
 
-#### Segue abaixo o código SQL para criação da table:
+#### Segue abaixo o código SQL para criação da database e da tabela:
 
 ```sql
+CREATE database db_vendasbolos;
+
 CREATE TABLE IF NOT EXISTS tbl_ingredientes (
 id_ingrediente INT AUTO_INCREMENT,
 descricao varchar(50) not null,
@@ -63,7 +101,7 @@ INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VAL
 ```
 </details>
 
-### **2.2 - Configurando as propriedades**
+### **3.2 - Configurando as propriedades**
 #### Uma vez criado a database, devemos configurá-lo no arquivo "**application.properties**", tomando os devidos cuidados com os atributos de ***url*, *username* e *password***, para que a conexão aconteça corretamente.
 
 ```properties
@@ -75,34 +113,6 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 ```
-
-## <center>:building_construction: **3 - Estrutura do projeto**</center>
-
-![Estrutura do projeto](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/estrutura.png?raw=true)
-
-### **3.1 Controller**
-
-#### Camada responsável por orquestrar o fluxo da aplicação ao fazer o mapeamento e o direcionamento dos *requests* para a camada de serviços.
-
-![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Controller.png?raw=true)
-
-### **3.2 Entity**
-
-#### Camada responsável por fazer o **ORM** *(Object Relational Mapper)* da tabela "*tbl_ingredientes*" para que se comporte como uma classe comum em Java.
-
-![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Entity.png?raw=true)
-
-### **3.3 Service**
-
-#### Camada onde serão inseridas as regras de negócio, e onde injetamos o repository para que seja possível a chamada dos métodos que farão a persistência
-
-![Camada Service](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Service2.png?raw=true)
-
-### **3.4 Repository**
-
-#### Nesta camada criamos uma interface que extende a interface *JpaRepository* do *Spring Data JPA*. É através dela que iremos usar a camada de persistência para gravar e recuperar dados, fazendo uma ponte com o banco de dados.
-
-![Camada Repository](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Repository.png?raw=true)
 
 ## <center>**4 - Testando a API com o Postman**</center>
 
