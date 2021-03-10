@@ -53,14 +53,17 @@
 
 #### Foram configurados **2 profiles** para podermos testar a aplicação: 
 ![Profiles](https://github.com/Vandeilsonln/IngredientesAPI/blob/remotedb/_images/Profiles.png?raw=true)
+
  - O profile "**prod**" vai subir a aplicação com o banco de dados **MySQL**. Para tanto, é necessário que você tenha o mesmo instalado em sua máquina, com o database e a tabela criadas com os campos corretos. Mas não se preocupe, o código para a criação de tudo será fornecido logo abaixo! :relaxed:
  - O profile "**dev**" vai subir a aplicação com o banco **H2 *in-memory***. Dessa forma, é possível testar os métodos sem inteferir no banco de produção, além de não ser necessário nenhum software adicional instalado.
+---
 
 #### A forma de escolher qual o profile será o ativo na hora de rodar a aplicação é selecionando o *configuration*, conforme imagem abaixo:
 ![Selecionando Profile](https://github.com/Vandeilsonln/IngredientesAPI/blob/remotedb/_images/selectProfile.PNG?raw=true)
 
 #### E super importante, para informar ao Spring Boot qual desses profiles será o ativo em cada *configuration*, é necessário inserir uma *variável de ambiente* (Environment Variable), conforme imagem abaixo. 
 ![Setando environment variables](https://github.com/Vandeilsonln/IngredientesAPI/blob/remotedb/_images/envvar.PNG?raw=true)
+
 ### **3.1 - Rodando com o profile "*prod*" (MySQL)**
 <details>
 
@@ -121,6 +124,7 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 ```
 </details>
 
+---
 ### **3.2 - Rodando com o profile *"dev" (H2)***
 <details>
 <summary>Clique aqui para visualizar a configuração</summary>
