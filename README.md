@@ -52,16 +52,21 @@
 ## <center>:hammer_and_wrench: **3 - Rodando a aplicação com o profile correto**</center>
 
 #### Foram configurados **2 profiles** para podermos testar a aplicação: 
-![Profiles](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Profiles.png?raw=true)
+![Profiles](https://github.com/Vandeilsonln/IngredientesAPI/blob/remotedb/_images/Profiles.png?raw=true)
  - O profile "**prod**" vai subir a aplicação com o banco de dados **MySQL**. Para tanto, é necessário que você tenha o mesmo instalado em sua máquina, com o database e a tabela criadas com os campos corretos. Mas não se preocupe, o código para a criação de tudo será fornecido logo abaixo! :relaxed:
- - O profile "**dev**" vai subir a aplicação com o banco H2 in-memory. Dessa forma, é possível testar os métodos sem inteferir no banco de produção, além de não ser necessário nenhum software adicional instalado.
+ - O profile "**dev**" vai subir a aplicação com o banco **H2 *in-memory***. Dessa forma, é possível testar os métodos sem inteferir no banco de produção, além de não ser necessário nenhum software adicional instalado.
 
 #### A forma de escolher qual o profile será o ativo na hora de rodar a aplicação é selecionando o *configuration*, conforme imagem abaixo:
-![Selecionando Profile](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/selectProfile.png?raw=true)
+![Selecionando Profile](https://github.com/Vandeilsonln/IngredientesAPI/blob/remotedb/_images/selectProfile.PNG?raw=true)
 
-### **3.1 - Criar o banco e a table no MySQL**
+#### E super importante, para informar ao Spring Boot qual desses profiles será o ativo em cada *configuration*, é necessário inserir uma *variável de ambiente* (Environment Variable), conforme imagem abaixo. 
+![Setando environment variables](https://github.com/Vandeilsonln/IngredientesAPI/blob/remotedb/_images/envvar.PNG?raw=true)
+### **3.1 - Rodando com o profile "*prod*" (MySQL)**
+<details>
 
-#### Para dar início à configuração do projeto, primeiramente é necessário a **construção de uma tabela no MySQL**. A partir dela poderá ser feito o mapeamento com o JPA.
+<summary>Clique para visualizar a configuração</summary>
+
+#### Primeiramente é necessário a **construção de uma tabela no MySQL**. A partir dela poderá ser feito o mapeamento com o JPA.
 #### Deve-se, portanto, criar uma databse com o nome "**db_vendasbolos**", e dentro dela criar a tabela "**tbl_ingredientes**"
 ![Tabela de ingredientes do MySQL](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/tbl_ingredientes.png?raw=true)
 
@@ -87,7 +92,7 @@ CONSTRAINT ingredientes_unidade_medida CHECK(unidade_medida in ('kg', 'g', 'ml',
 
 <details>
 
- <summary>A seguir, podemos popular a tabela com alguns elementos, com o código abaixo: (Clique para Expandir)</summary>
+ <summary>A seguir, podemos popular a tabela com alguns registros, com o código abaixo: (Clique para Expandir)</summary>
 
 ```sql
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Leite condensado', 4.5, 395, 'g');
@@ -101,10 +106,11 @@ INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VAL
 ```
 </details>
 
-### **3.2 - Configurando as propriedades**
-#### Uma vez criado a database, devemos configurá-lo no arquivo "**application.properties**", tomando os devidos cuidados com os atributos de ***url*, *username* e *password***, para que a conexão aconteça corretamente.
+### **3.1.1 - Configurando as propriedades**
+#### Uma vez criado a database, devemos configurá-lo no arquivo "**application-prod.properties**", tomando os devidos cuidados com os atributos de ***url*, *username* e *password***, para que a conexão aconteça corretamente.
 
 ```properties
+# MySQL Configuration
 spring.datasource.url=jdbc:mysql://localhost:3306/db_vendasbolos?useSSL=false
 spring.datasource.username=root
 spring.datasource.password=admin
@@ -113,6 +119,25 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 ```
+</details>
+
+### **3.2 - Rodando com o profile *"dev" (H2)***
+<details>
+<summary>Clique aqui para visualizar a configuração</summary>
+
+#### Subindo a aplicação com esse profile, basta acessar o arquivo **application-dev.properties** e colocar os atributos abaixo:
+```properties
+# in-memory H2 Configuration
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2
+
+spring.datasource.url=jdbc:h2:mem:db_vendasbolos
+spring.datasource.username=sa
+spring.datasource.password=
+spring.datasource.driver-class-name=org.h2.Driver
+spring.jpa.hibernate.ddl-auto=update
+```
+</details>
 
 ## <center>**4 - Testando a API com o Postman**</center>
 
