@@ -14,12 +14,14 @@
 - Spring Data JPA
 - MySQL
 - Junit
+- Heroku
 ## <center>:open_book: **1. Etapas de desenvolvimento**</center>
 :white_check_mark: Implementação dos principais métodos **REST HTTP**, também conhecido como **CRUD**.
 
 :white_check_mark: Configuração de conexão com banco de dados local e *in memory* (**H2**).
+
+:white_check_mark: Deploy em nuvem no **Heroku**
 - [ ] Implementação de testes unitários
-- [ ] Deploy em nuvem no **Heroku**
 
 ## <center>:building_construction: **2 - Estrutura do projeto**</center>
 
@@ -55,14 +57,13 @@
 ![Profiles](https://github.com/Vandeilsonln/IngredientesAPI/blob/remotedb/_images/Profiles.png?raw=true)
 
  - O profile "**prod**" vai subir a aplicação com o banco de dados **MySQL**. Para tanto, é necessário que você tenha o mesmo instalado em sua máquina, com o database e a tabela criadas com os campos corretos. Mas não se preocupe, o código para a criação de tudo será fornecido logo abaixo! :relaxed:
- - O profile "**dev**" vai subir a aplicação com o banco **H2 *in-memory***. Dessa forma, é possível testar os métodos sem inteferir no banco de produção, além de não ser necessário nenhum software adicional instalado.
+ - O profile "**dev**" vai subir a aplicação com o banco **H2 *in-memory***. Dessa forma, é possível testar os métodos sem inteferir no banco de produção, além de não ser necessário nenhum software adicional instalado. Além do mais, a aplicação poderá ser testada através da plataforma em nuvem **Heroku**.
 ---
 
-#### A forma de escolher qual o profile será o ativo na hora de rodar a aplicação é selecionando o *configuration*, conforme imagem abaixo:
-![Selecionando Profile](https://github.com/Vandeilsonln/IngredientesAPI/blob/remotedb/_images/selectProfile.PNG?raw=true)
-
-#### E super importante, para informar ao Spring Boot qual desses profiles será o ativo em cada *configuration*, é necessário inserir uma *variável de ambiente* (Environment Variable), conforme imagem abaixo. 
-![Setando environment variables](https://github.com/Vandeilsonln/IngredientesAPI/blob/remotedb/_images/envvar.PNG?raw=true)
+#### A forma de escolher qual o profile será o ativo na hora de rodar a aplicação é através do aquivo **application.properties**. Por padrão, o profile ativo será o **dev**. Caso queira rodar a aplicação com o *MySQL*, basta trocar o valor para **prod**.
+```properties
+spring.profiles.active=dev
+```
 
 ### **3.1 - Rodando com o profile "*prod*" (MySQL)**
 <details>
@@ -129,7 +130,7 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
 <details>
 <summary>Clique aqui para visualizar a configuração</summary>
 
-#### Subindo a aplicação com esse profile, basta acessar o arquivo **application-dev.properties** e colocar os atributos abaixo:
+#### Subindo a aplicação com esse profile, basta acessar o arquivo **application-dev.properties** e certificar que os atributos estão como abaixo abaixo:
 ```properties
 # in-memory H2 Configuration
 spring.h2.console.enabled=true
@@ -145,6 +146,17 @@ spring.jpa.hibernate.ddl-auto=update
 
 ## <center>**4 - Testando a API com o Postman**</center>
 
+### A aplicação poderá ser testada localmente, através do endereço [1]:
+```http
+http://localhost:8080
+```
+### Ou pela nuvem atravé da plataforma **Heroku**, pelo link [2]:
+```http
+https://controleingredientes.herokuapp.com
+```
+
+#### **NOTA: Os links das requisições neste capítulo estão todos configurados para serem executados localmente. Mas podem ser facilmente trocados, substituindo o link [1] pelo [2] nos exemplos abaixo.**
+
 ## **4.1 - Método GET** 
 #### **getIngredientes** - Retorna todos as tuplas presentes na tabela
 ```http
@@ -158,7 +170,7 @@ http://localhost:8080/api/v1/ingrediente/byId/2
 ---
 #### **getByDescricao** - Retorna pela descrição
 ```http
-http://localhost:8080/api/v1/ingrediente/byDescription/Ovos
+http://localhost:8080/api/v1/ingrediente/byDescription/Manteiga
 ```
 ---
 ## **4.2 - Método POST**
@@ -173,10 +185,10 @@ http://localhost:8080/api/v1/ingrediente/addSingle
 
 ```json
 {   
-    "descricao": "Teste POST ingrediente",
-    "preco": 24.5,
+    "descricao": "Leite",
+    "preco": 4,
     "volumePeso": 1,
-    "type": "kg"
+    "type": "l"
 }
 ```
 </details>
@@ -194,16 +206,16 @@ http://localhost:8080/api/v1/ingrediente/addMany
 ```json
 [
 {   
-    "descricao": "Ingrediente 1 da lista",
-    "preco": 14.5,
-    "volumePeso": 400,
-    "type": "ml"
+    "descricao": "Manteiga",
+    "preco": 5,
+    "volumePeso": 500,
+    "type": "g"
 },
 {
-    "descricao": "Ingrediente 2 da lista",
-    "preco": 5,
-    "volumePeso": 2,
-    "type": "l"
+    "descricao": "Chocolate",
+    "preco": 40,
+    "volumePeso": 1,
+    "type": "kg"
 }
 ]
 ```
@@ -212,8 +224,8 @@ http://localhost:8080/api/v1/ingrediente/addMany
 ---
 ## **4.3 - Método PUT**
 #### **updateIngrediente**
-```
-http://localhost:8080/api/v1/ingrediente/update/11
+```http
+http://localhost:8080/api/v1/ingrediente/update/2
 ```
 
 <details>
@@ -222,10 +234,10 @@ http://localhost:8080/api/v1/ingrediente/update/11
 
 ```json
 {   
-    "descricao": "Chocolate nobre meio amargo",
-    "preco": 40,
-    "volumePeso": 1,
-    "type": "kg"
+    "descricao": "Manteiga com sal",
+    "preco": 2,
+    "volumePeso": 250,
+    "type": "g"
 }
 ```
 </details>
@@ -233,6 +245,6 @@ http://localhost:8080/api/v1/ingrediente/update/11
 ---
 ## **4.4 - Método DELETE**
 #### **deleteById**
-```
-http://localhost:8080/api/v1/ingrediente/delete/11
+```http
+http://localhost:8080/api/v1/ingrediente/delete/2
 ```
