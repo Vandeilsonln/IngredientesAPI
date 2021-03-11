@@ -4,6 +4,8 @@
 
 #### A aplicação realiza as operações básicas de CRUD para o gerenciamento de ingredientes de uma confeitaria, com informações sobre tipo do produto e preço.
 ![REST http Verbs](https://www.codeproject.com/KB/webservices/826383/table.png)
+##### Principais métodos HTTP REST, com seus respectivos responses e status code.
+---
 
 
 ### :computer: **Tecnologias usadas**
@@ -30,12 +32,13 @@
 ### **2.1 Controller**
 
 #### Camada responsável por orquestrar o fluxo da aplicação ao fazer o mapeamento e o direcionamento dos *requests* para a camada de serviços.
+#### Aqui, faz-se o uso da anotação "**@Autowired**" do *Lombok* para injetarmos o "*IngredientesService*" sem que seja necessário instanciá-lo.
 
 ![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Controller.png?raw=true)
 
 ### **2.2 Entity**
 
-#### Camada responsável por fazer o **ORM** *(Object Relational Mapper)* da tabela "*tbl_ingredientes*" para que se comporte como uma classe comum em Java.
+#### Camada responsável por fazer o **ORM** *(Object Relational Mapper)* da tabela "*tbl_ingredientes*" para que se comporte como uma classe comum em Java. O uso da anotação "**@Data**" se encarregará de fazer todos os *getters* e *setters* em tempo de compilação.
 
 ![Camada de Controller](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/Entity.png?raw=true)
 
@@ -71,7 +74,7 @@ spring.profiles.active=dev
 <summary>Clique para visualizar a configuração</summary>
 
 #### Primeiramente é necessário a **construção de uma tabela no MySQL**. A partir dela poderá ser feito o mapeamento com o JPA.
-#### Deve-se, portanto, criar uma databse com o nome "**db_vendasbolos**", e dentro dela criar a tabela "**tbl_ingredientes**"
+#### Deve-se, portanto, criar uma database com o nome "**db_vendasbolos**", e dentro dela criar a tabela "**tbl_ingredientes**"
 ![Tabela de ingredientes do MySQL](https://github.com/Vandeilsonln/IngredientesAPI/blob/master/_images/tbl_ingredientes.png?raw=true)
 
 
@@ -102,7 +105,7 @@ CONSTRAINT ingredientes_unidade_medida CHECK(unidade_medida in ('kg', 'g', 'ml',
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Leite condensado', 4.5, 395, 'g');
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Creme de Leite', 2.7, 200, 'g');
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Leite', 3.2, 1, 'l');
-INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Manteiga', 5, 500, 'g');
+INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Creme de avela', 27, 200, 'g');
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Farinha de trigo', 4.6, 1, 'kg');
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Cacau em pó', 20, 200, 'g');
 INSERT INTO tbl_ingredientes (descricao, preco, volume_peso, unidade_medida) VALUES('Ovos', 0.4, 50, 'g');
